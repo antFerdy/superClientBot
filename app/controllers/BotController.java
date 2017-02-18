@@ -13,7 +13,7 @@ public class BotController extends Controller{
 
 	public Result updateOccured() {
 		String reqText = request().body().asText();
-		Logger.debug(reqText);
+		Logger.info(reqText);
 		return ok();
 	}
 }
