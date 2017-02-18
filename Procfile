@@ -1,1 +1,1 @@
-web: target/scala-2.11 -Dhttp.port=${PORT}
+web: target/universal/stage/bin/superclientbot -Dhttp.port=${PORT}
