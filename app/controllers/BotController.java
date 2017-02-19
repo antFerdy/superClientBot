@@ -14,6 +14,7 @@ public class BotController extends Controller{
 	public Result updateOccured() {
 		String reqText = request().body().asText();
 		Logger.info(reqText);
+		Logger.info("hello world");
 		return ok();
 	}
 }
