@@ -8,6 +8,8 @@ public class BotController extends Controller{
 	
 	
 	public Result getMain() {
+		String reqText = request().body().asJson().textValue();
+		Logger.info(reqText);
 		return ok("Hello guys! I am superClient Bot");
 	}
 
