@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,17 +33,17 @@ public class BotController extends Controller{
 //		RequestBody body = request().body();
 //		Logger.info("Size of body as json: " + body.asJson().size());
 		
-//		play.mvc.Http.MultipartFormData form = request().body().asMultipartFormData();
-//		List files = form.getFiles();
+		play.mvc.Http.MultipartFormData form = request().body().asMultipartFormData();
+		List files = form.getFiles();
+		Logger.info("Size of multipart form: " + files.size());
 		
 		
 		
 		
 		
-		
-		Map<String, String[]> mapForm = request().body().asFormUrlEncoded();
-		if(mapForm != null || !mapForm.equals(null))
-			Logger.info("Size of map form " + mapForm.size());
+//		Map<String, String[]> mapForm = request().body().asFormUrlEncoded();
+//		if(mapForm != null || !mapForm.equals(null))
+//			Logger.info("Size of map form " + mapForm.size());
 		
 //		Set<String> keysForm = mapForm.keySet();
 //		for(String key : keysForm) {
