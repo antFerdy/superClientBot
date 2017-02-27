@@ -1,2 +1,2 @@
 GET           /                            controllers.BotController.getMain()
-POST		  /api/telegram/update		   controllers.BotController.updateOccured()
+POST		  /update		   			   controllers.BotController.updateOccured()
