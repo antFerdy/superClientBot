@@ -1,9 +1,7 @@
 package controllers;
 
-import java.util.concurrent.CompletionStage;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.google.inject.Inject;
+import java.util.Map;
+import java.util.Set;
 
 import play.Logger;
 import play.mvc.Controller;
@@ -16,9 +14,21 @@ public class BotController extends Controller{
 	}
 
 	public Result updateOccured() {
-		String reqText = request().toString();
-		Logger.info(reqText);
-		Logger.info("hello world");
-		return ok();
+//		String reqText = request().getHeader(CONTENT_TYPE);
+//		Logger.info("Content type: ");
+//		Logger.info(reqText);
+		
+		Map<String, String[]> headers = request().headers();
+		Set<String> keys = headers.keySet();
+		
+		for(String key : keys) {
+			Logger.info("The key is: " + key);
+			String[] values = headers.get(key);
+			for(String value : values) {
+				Logger.info("The Values of the key: " + value);
+			}
+		}
+		
+		return ok("Privet");
 	}
 }
