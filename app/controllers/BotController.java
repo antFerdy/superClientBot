@@ -1,13 +1,10 @@
 package controllers;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import MultipartFormData;
 import play.Logger;
 import play.mvc.Controller;
-import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 
 public class BotController extends Controller{
