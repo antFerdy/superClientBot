@@ -22,7 +22,7 @@ public class BotController extends Controller{
 		Iterator<JsonNode> it = json.elements();
 		
 		while(it.hasNext()) {
-			Logger.info(it.next().textValue());
+			Logger.info(it.next().asToken().asString());
 		}
 		
 		return ok("Privet");
