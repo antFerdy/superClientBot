@@ -37,14 +37,17 @@ public class BotController extends Controller{
 		
 		
 		Map<String, String[]> mapForm = request().body().asFormUrlEncoded();
-		Set<String> keysForm = mapForm.keySet();
-		for(String key : keysForm) {
-			Logger.info("The key in FORM is: " + key);
-			String[] values = mapForm.get(key);
-			for(String value : values) {
-				Logger.info("The Values of the form key: " + value);
-			}
-		}
+		if(mapForm != null || !mapForm.equals(null))
+			Logger.info("Size of map form " + mapForm.size());
+		
+//		Set<String> keysForm = mapForm.keySet();
+//		for(String key : keysForm) {
+//			Logger.info("The key in FORM is: " + key);
+//			String[] values = mapForm.get(key);
+//			for(String value : values) {
+//				Logger.info("The Values of the form key: " + value);
+//			}
+//		}
 		
 		return ok("Privet");
 	}
