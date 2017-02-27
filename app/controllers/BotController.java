@@ -36,6 +36,10 @@ public class BotController extends Controller{
 //		List files = form.getFiles();
 		
 		
+		
+		
+		
+		
 		Map<String, String[]> mapForm = request().body().asFormUrlEncoded();
 		if(mapForm != null || !mapForm.equals(null))
 			Logger.info("Size of map form " + mapForm.size());
