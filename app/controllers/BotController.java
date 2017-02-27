@@ -1,10 +1,13 @@
 package controllers;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import MultipartFormData;
 import play.Logger;
 import play.mvc.Controller;
+import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 
 public class BotController extends Controller{
@@ -29,10 +32,23 @@ public class BotController extends Controller{
 			}
 		}
 		
-		String BodyText = request().body().asJson().textValue();
-		Logger.info("Body text: " + BodyText);
+//		RequestBody body = request().body();
+//		Logger.info("Size of body as json: " + body.asJson().size());
 		
-		Logger.info("Size of body: " + request().body().asRaw().size());
+//		play.mvc.Http.MultipartFormData form = request().body().asMultipartFormData();
+//		List files = form.getFiles();
+		
+		
+		Map<String, String[]> mapForm = request().body().asFormUrlEncoded();
+		Set<String> keysForm = mapForm.keySet();
+		for(String key : keysForm) {
+			Logger.info("The key in FORM is: " + key);
+			String[] values = mapForm.get(key);
+			for(String value : values) {
+				Logger.info("The Values of the form key: " + value);
+			}
+		}
+		
 		return ok("Privet");
 	}
 }
