@@ -29,7 +29,7 @@ public class BotController extends Controller{
 			}
 		}
 		
-		String BodyText = request().body().asJson().asText();
+		String BodyText = request().body().asJson().textValue();
 		Logger.info("Body text: " + BodyText);
 		
 		Logger.info("Size of body: " + request().body().asRaw().size());
