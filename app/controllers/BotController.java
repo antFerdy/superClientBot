@@ -15,8 +15,18 @@ import play.mvc.Result;
 public class BotController extends Controller{
 	
 	public Result getMain() {
-		String txt = request().body().asJson().textValue();
-		System.out.println(txt);
+		JsonNode json = request().body().asJson();
+		JsonNode idNode = json.path("update_id");
+		if(idNode == null) {
+			System.out.println("FUCK((");
+		}
+		if(idNode.isMissingNode()) {
+			System.out.println("MISSING NODE");
+		} else {
+			System.out.print("ID IS: " + idNode.asInt());
+		}
+		
+		
 		return ok("Hello guys! I am superClient Bot");
 	}
 
@@ -24,6 +34,7 @@ public class BotController extends Controller{
 		Optional<String> type = request().contentType();
 		if(type.isPresent()) {
 			String rs = type.get();
+			
 			System.out.println(rs);
 			return ok(rs);
 		}
