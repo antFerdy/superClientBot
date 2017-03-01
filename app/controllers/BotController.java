@@ -14,6 +14,8 @@ import play.mvc.Result;
 public class BotController extends Controller{
 	
 	public Result getMain() {
+		String txt = request().body().asJson().textValue();
+		System.out.println(txt);
 		return ok("Hello guys! I am superClient Bot");
 	}
 
