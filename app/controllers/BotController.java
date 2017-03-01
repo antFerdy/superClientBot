@@ -1,14 +1,12 @@
 package controllers;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
 import java.util.Optional;
-import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import play.Logger;
+import models.Update;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -16,14 +14,26 @@ public class BotController extends Controller{
 	
 	public Result getMain() {
 		JsonNode json = request().body().asJson();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			Update u = mapper.readValue(json.toString(), Update.class);
+			System.err.println("DATE " + u.getMessage().getDate());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		JsonNode idNode = json.path("update_id");
 		if(idNode == null) {
-			System.out.println("FUCK((");
+			System.err.println("FUCK((");
 		}
 		if(idNode.isMissingNode()) {
-			System.out.println("MISSING NODE");
+			System.err.println("MISSING NODE");
 		} else {
-			System.out.print("ID IS: " + idNode.asInt());
+			System.err.println("ID IS: " + idNode.asInt());
 		}
 		
 		
