@@ -4,6 +4,7 @@ public class User {
 	private long id;
 	private String first_name;
 	private String username;
+	private String last_name;
 	
 	public long getId() {
 		return id;
@@ -22,6 +23,12 @@ public class User {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public String getLast_name() {
+		return last_name;
+	}
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 	
 
