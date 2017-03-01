@@ -18,12 +18,8 @@ public class BotController extends Controller{
 	}
 
 	public Result updateOccured() {		
-		JsonNode json = request().body().asJson();
-		Iterator<JsonNode> it = json.elements();
-		
-		while(it.hasNext()) {
-			Logger.info(it.next().asToken().asString());
-		}
+		String txt = request().body().asJson().textValue();
+		System.out.println(txt);
 		
 		return ok("Privet");
 	}
