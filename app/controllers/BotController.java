@@ -3,6 +3,7 @@ package controllers;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,9 +21,12 @@ public class BotController extends Controller{
 	}
 
 	public Result updateOccured() {		
-		String txt = request().body().asJson().textValue();
-		System.out.println(txt);
+		Optional<String> type = request().contentType();
+		if(type.isPresent()) {
+			String rs = type.get();
+			return ok(rs);
+		}
 		
-		return ok("Privet");
+		return badRequest();
 	}
 }
