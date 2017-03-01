@@ -24,6 +24,7 @@ public class BotController extends Controller{
 		Optional<String> type = request().contentType();
 		if(type.isPresent()) {
 			String rs = type.get();
+			System.out.println(txt);
 			return ok(rs);
 		}
 		
