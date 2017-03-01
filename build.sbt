@@ -9,3 +9,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava)
 EclipseKeys.preTasks := Seq(compile in Compile)
 EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
 EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
+
+libraryDependencies ++= Seq(
+  javaWs
+)

@@ -1,2 +1,2 @@
-POST           /                            controllers.BotController.getMain()
-POST		  /update		   			   controllers.BotController.updateOccured()
+POST           /                       controllers.BotController.update()
+GET		  	   /		   			   controllers.BotController.get()
