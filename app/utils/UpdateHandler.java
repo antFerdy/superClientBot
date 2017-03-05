@@ -31,9 +31,10 @@ public class UpdateHandler {
 		System.out.println(msgTxt);
 		
 		if(msgTxt.trim().equalsIgnoreCase("/start")) {
-			sendMessage(chatId, firtReply);
 			chatId = u.getMessage().getChat().getId();
 			firstMsgTime = u.getMessage().getDate();
+			
+			sendMessage(chatId, firtReply);
 		} else {
 			long id = u.getMessage().getChat().getId();
 			long newTime = u.getMessage().getDate();
