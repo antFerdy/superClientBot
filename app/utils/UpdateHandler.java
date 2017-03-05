@@ -30,7 +30,7 @@ public class UpdateHandler {
 		String msgTxt = u.getMessage().getText();
 		System.out.println(msgTxt);
 		
-		if(msgTxt.equals("/start")) {
+		if(msgTxt.trim().equalsIgnoreCase("/start")) {
 			sendMessage(chatId, firtReply);
 			chatId = u.getMessage().getChat().getId();
 			firstMsgTime = u.getMessage().getDate();
