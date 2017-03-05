@@ -12,8 +12,8 @@ public class UpdateHandler {
 
 	private static final String url = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
 	private WSClient ws;
-	private long chatId = 0L;
-	private long firstMsgTime;
+	private static long chatId = 0L;
+	private static long firstMsgTime;
 	
 	
 	private static final String firtReply = "Привет! Я робот, собирающий отзывы о компаниях. Делаю Клиентов и компании ближе друг к другу. "
@@ -38,6 +38,9 @@ public class UpdateHandler {
 		} else {
 			long id = u.getMessage().getChat().getId();
 			long newTime = u.getMessage().getDate();
+			
+			System.out.println("ID of old chat " + String.valueOf(chatId));
+			System.out.println("ID of new chat " + String.valueOf(id));
 			
 			if(id == chatId) {
 				System.out.println(new Date(newTime));
