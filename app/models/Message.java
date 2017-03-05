@@ -8,6 +8,7 @@ public class Message {
 	private long date;
 	private User from;
 	private Chat chat;
+	private String text;
 	
 	public long getMessage_id() {
 		return message_id;
@@ -32,5 +33,11 @@ public class Message {
 	}
 	public void setChat(Chat chat) {
 		this.chat = chat;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
 	}
 }
