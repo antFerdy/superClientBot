@@ -28,20 +28,19 @@ public class UpdateHandler {
 
 	public void handle(Update u) {
 		String msgTxt = u.getMessage().getText();
-		if(chatId != 0L) {
-			chatId = u.getMessage().getChat().getId();
-			firstMsgTime = u.getMessage().getDate();
-		}
+		System.out.println(msgTxt);
 		
 		if(msgTxt.equals("/start")) {
 			sendMessage(chatId, firtReply);
+			chatId = u.getMessage().getChat().getId();
+			firstMsgTime = u.getMessage().getDate();
 		} else {
 			long id = u.getMessage().getChat().getId();
 			long newTime = u.getMessage().getDate();
+			
 			if(id == chatId) {
 				System.out.println(new Date(newTime));
 				System.out.println(new Date(firstMsgTime));
-				System.out.println(msgTxt);
 				
 				if(newTime - firstMsgTime < 36000L) {
 					sendMessage(chatId, secondReply);

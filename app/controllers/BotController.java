@@ -27,7 +27,6 @@ public class BotController extends Controller{
 		
 		try {
 			Update u = mapper.readValue(json.toString(), Update.class);
-			System.err.println("DATE " + u.getMessage().getDate());
 			UpdateHandler handler = new UpdateHandler(ws);
 			handler.handle(u);
 		} catch (IOException e) {
