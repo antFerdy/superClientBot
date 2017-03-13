@@ -8,16 +8,20 @@ import javax.inject.Inject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import models.Update;
 import play.libs.ws.WSClient;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.db.jpa.JPAApi;
+
+
+import models.Update;
 import utils.UpdateHandler;
 
 public class BotController extends Controller{
 	@Inject 
 	WSClient ws;
 	
+	JPAApi jpaApi;
 	
 	
 	public Result update() {
@@ -35,7 +39,8 @@ public class BotController extends Controller{
 		}
 		return ok("Hello guys! I am superClient Bot");
 	}
-
+	
+	
 	public Result get() {
 		return ok("Hello guys! I am superClient Bot");
 	}

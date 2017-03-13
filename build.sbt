@@ -11,5 +11,9 @@ EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
 EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
 
 libraryDependencies ++= Seq(
-  javaWs
+  javaWs,
+  javaJdbc,
+  javaJpa,
+  "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final", // replace by your jpa implementation
+  cache
 )
