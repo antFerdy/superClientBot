@@ -12,8 +12,8 @@ import play.libs.ws.WSClient;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.db.jpa.JPAApi;
-
-
+import play.db.jpa.Transactional;
+import models.TestEntity;
 import models.Update;
 import utils.UpdateHandler;
 
@@ -40,8 +40,10 @@ public class BotController extends Controller{
 		return ok("Hello guys! I am superClient Bot");
 	}
 	
-	
+	@Transactional
 	public Result get() {
+//		TestEntity entity = new TestEntity();
+//		jpaApi.em().persist(entity);
 		return ok("Hello guys! I am superClient Bot");
 	}
 }
