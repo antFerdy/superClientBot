@@ -11,6 +11,7 @@ EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
 EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
 
 libraryDependencies ++= Seq(
+  libraryDependencies += "postgresql" % "postgresql" % "9.1-901-1.jdbc4",
   javaWs,
   javaJdbc,
   javaJpa,
