@@ -42,8 +42,8 @@ public class BotController extends Controller{
 	
 	@Transactional
 	public Result get() {
-//		TestEntity entity = new TestEntity();
-//		jpaApi.em().persist(entity);
+		TestEntity entity = new TestEntity();
+		jpaApi.em().persist(entity);
 		return ok("Hello guys! I am superClient Bot");
 	}
 }
