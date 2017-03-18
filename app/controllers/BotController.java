@@ -21,6 +21,7 @@ public class BotController extends Controller{
 	@Inject 
 	WSClient ws;
 	
+	@Inject
 	JPAApi jpaApi;
 	
 	
