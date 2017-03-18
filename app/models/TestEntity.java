@@ -11,6 +11,7 @@ import javax.persistence.Table;
 public class TestEntity {
 	
 	@Id
+	@Column
 	@GeneratedValue
 	public Long id;
 	
