@@ -13,6 +13,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
+import models.Contact;
 import models.TestEntity;
 import models.Update;
 import utils.UpdateHandler;
@@ -43,10 +44,11 @@ public class BotController extends Controller{
 	
 	@Transactional
 	public Result get() {
-		TestEntity entity = new TestEntity();
-		entity.setId(1);
-		entity.setName("RUSTEM");
-		jpaApi.em().persist(entity);
+		Contact c = new Contact();
+		c.setName("RUS");
+		c.setEmail("r.zhu@aa.kz");
+		
+		jpaApi.em().persist(c);
 		return ok("Hello guys! I am superClient Bot");
 	}
 }
