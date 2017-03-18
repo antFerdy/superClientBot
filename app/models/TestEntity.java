@@ -14,7 +14,7 @@ public class TestEntity {
     @Id
     @GeneratedValue
     @Column(name = "ID_")
-    private Long id;
+    private Integer id;
 
     @Column(name = "CODE3_")
     private String code3;
@@ -32,11 +32,11 @@ public class TestEntity {
     private boolean enabled;
     
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
