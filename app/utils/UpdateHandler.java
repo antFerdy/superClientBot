@@ -6,6 +6,7 @@ import java.util.concurrent.CompletionStage;
 import javax.inject.Inject;
 import play.libs.ws.*;
 import models.Message;
+import models.Reply;
 import models.Update;
 import models.dao.UpdateDAO;
 
@@ -39,10 +40,16 @@ public class UpdateHandler {
 			chatId = u.getMessage().getChat().getId();
 			firstMsgTime = u.getMessage().getDate();
 			
-			updateDao.saveReply();
+			Reply r = new Reply();
+			r.setQuestionCount(1);
+			updateDao.saveReply(r);
+			
 			
 			sendMessage(chatId, firtReply);
 		} else {
+			
+			
+			
 			long id = u.getMessage().getChat().getId();
 			long newTime = u.getMessage().getDate();
 			
