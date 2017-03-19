@@ -11,9 +11,7 @@ import models.dao.UpdateDAO;
 
 public class UpdateHandler {
 	private WSClient ws;
-	
-	@Inject
-	UpdateDAO updateDao;
+	private UpdateDAO updateDao;
 	
 	private static final String url = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
 	//private static final String url = "https://api.telegram.org/bot283960461:AAFkG67m6NWfHpPQ3vQN1KVKhu1buMh9m6M/sendMessage";
@@ -30,6 +28,7 @@ public class UpdateHandler {
 	
 	public UpdateHandler(WSClient ws) {
 		this.ws = ws;
+		this.updateDao = new UpdateDAO();
 	}
 
 	public void handle(Update u) {
