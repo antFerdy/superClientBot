@@ -7,11 +7,18 @@ import javax.inject.Inject;
 import play.libs.ws.*;
 import models.Message;
 import models.Update;
+import models.dao.UpdateDAO;
 
 public class UpdateHandler {
-
-	private static final String url = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
 	private WSClient ws;
+	
+	@Inject
+	UpdateDAO updateDao;
+	
+	private static final String url = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
+	//private static final String url = "https://api.telegram.org/bot283960461:AAFkG67m6NWfHpPQ3vQN1KVKhu1buMh9m6M/sendMessage";
+	
+	
 	private static long chatId = 0L;
 	private static long firstMsgTime;
 	
@@ -22,7 +29,6 @@ public class UpdateHandler {
 	
 	
 	public UpdateHandler(WSClient ws) {
-		// TODO Auto-generated constructor stub
 		this.ws = ws;
 	}
 
@@ -33,6 +39,8 @@ public class UpdateHandler {
 		if(msgTxt.trim().equalsIgnoreCase("/start")) {
 			chatId = u.getMessage().getChat().getId();
 			firstMsgTime = u.getMessage().getDate();
+			
+			updateDao.saveReply();
 			
 			sendMessage(chatId, firtReply);
 		} else {
