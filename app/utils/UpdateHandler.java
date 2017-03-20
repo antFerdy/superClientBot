@@ -57,7 +57,7 @@ public class UpdateHandler {
 			initReply(chatId, msgTime);
 			
 		//если был отправлен стикер или другой формат данных или пустое сообщение
-		} else if(msgTxt.equals(null) || msgTxt.trim().isEmpty()) {
+		} else if(msgTxt == null || msgTxt.trim().isEmpty()) {
 			resendMsg(chatId, reply, msgTime, "Формат ответа некорректен. Пожалуйста повторите ответ");
 		
 		//если прошло более часа, то делаем старый отзыв завершенным и инициализируем новый
