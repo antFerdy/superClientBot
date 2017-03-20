@@ -54,20 +54,6 @@ public class UpdateHandler {
 			
 			int counter = reply.getQuestionCount();
 			
-			//send responce
-			long newTime = u.getMessage().getDate();
-			if(newTime - reply.getMsgTime() < 36000L) {
-				sendMessage(chatId, questions[counter + 1]);
-				reply.setQuestionCount(counter + 1);
-			} else {
-				//if first responce was sended, but waiting lasts more than 1 hour: 
-				//remove entity and create new one
-				updateDao.remove(reply);
-				initReply(chatId, msgTime);
-				return;
-			}
-			
-			
 			//set data to entity
 			if(counter == 0) {
 				reply.setCompany(msgTxt);
@@ -91,11 +77,20 @@ public class UpdateHandler {
 			
 			//save entity
 			updateDao.saveReply(reply);
+			
+			//send responce
+			long newTime = u.getMessage().getDate();
+			if(newTime - reply.getMsgTime() < 36000L) {
+				sendMessage(chatId, questions[counter + 1]);
+				reply.setQuestionCount(counter + 1);
+			} else {
+				//if first responce was sended, but waiting lasts more than 1 hour: 
+				//remove entity and create new one
+				updateDao.remove(reply);
+				initReply(chatId, msgTime);
+				return;
+			}
 		}
-		
-		
-		
-		
 	}
 	
 	private void initReply(long chatId, long firstMsgTime) {
