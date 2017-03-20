@@ -54,9 +54,9 @@ public class UpdateHandler {
 					reply.setQuestionCount(4);
 					updateDao.saveReply(reply);
 				}
-			} else {
-				initReply(chatId, msgTime);
 			}
+			
+			initReply(chatId, msgTime);
 		}
 		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
 		else if(reply == null || (msgTxt == null && reply == null)) {
