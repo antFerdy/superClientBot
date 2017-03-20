@@ -48,7 +48,7 @@ public class UpdateHandler {
 		if(msgTxt != null && msgTxt.trim().equalsIgnoreCase("/start")) {
 			//если юзер захотел заново запустить бота, то комитим первоначальную инициализацию
 			if(reply != null) {
-				if(reply.getQuestionCount() == 0) {
+				if(reply.getQuestionCount() == 1) {
 					updateDao.remove(reply);
 				} else {
 					reply.setQuestionCount(4);
