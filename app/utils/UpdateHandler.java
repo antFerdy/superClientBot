@@ -35,23 +35,30 @@ public class UpdateHandler {
 	}
 
 	public void handle(Update u) {
-		String msgTxt = u.getMessage().getText().trim();
 		long chatId = u.getMessage().getChat().getId();
 		long msgTime = u.getMessage().getDate();
-				
-		if(msgTxt.equalsIgnoreCase("/start")) {
+		
+		//Получаем сущность отзыва по чат айди
+		Reply reply = updateDao.getReplyByChatId(chatId);
+		
+		//Получаем текст сообщения
+		String msgTxt = u.getMessage().getText().trim();
+		
+		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
+		if(reply == null || msgTxt.equalsIgnoreCase("/start")) {
+			initReply(chatId, msgTime);
+			
+		//если был отправлен стикер или другой формат данных или пустое сообщение
+		} else if(msgTxt.equals(null) || msgTxt.isEmpty()) {
+			resendMsg(chatId, reply, msgTime, "Формат ответа некорректен. Пожалуйста повторите ответ");
+		
+		//если прошло более часа, то делаем старый отзыв завершенным и инициализируем новый
+		} else if(msgTime - reply.getMsgTime() > 36000L) {
+			reply.setQuestionCount(4);
+			updateDao.saveReply(reply);
+			
 			initReply(chatId, msgTime);
 		} else {
-			//get recently created reply by chat id
-			Reply reply = updateDao.getReplyByChatId(chatId);
-			
-			//handle case when first message was not start
-			if(reply == null) {
-				initReply(chatId, msgTime);
-				sendMessage(chatId, questions[0]);
-				return;
-			}
-			
 			int counter = reply.getQuestionCount();
 			
 			//set data to entity
@@ -65,31 +72,26 @@ public class UpdateHandler {
 				Integer rating = null;
 				try {
 					rating = Integer.valueOf(msgTxt);
+					if (rating > 10 || rating < 0) {
+						resendMsg(chatId, reply, msgTime, "Формат некорректен. Пожалуйста, поставьте рейтинг от 0 до 10. ");
+					}
+					
 				} catch (NumberFormatException e) {
-					System.err.println("Format of rating is incorrect. Only numbers required");
+					resendMsg(chatId, reply, msgTime, "Формат некорректен. Пожалуйста, поставьте рейтинг от 0 до 10.");
 				}
 				reply.setRating(rating);
-			} else if(counter == 4) {
-				System.out.println("The reply is over. we need to create new entity");
-				initReply(chatId, msgTime);
-				return;
 			}
+			
+			//set time and counter
+			reply.setMsgTime(msgTime);
+			reply.setQuestionCount(counter + 1);
 			
 			//save entity
 			updateDao.saveReply(reply);
 			
+			
 			//send responce
-			long newTime = u.getMessage().getDate();
-			if(newTime - reply.getMsgTime() < 36000L) {
-				sendMessage(chatId, questions[counter + 1]);
-				reply.setQuestionCount(counter + 1);
-			} else {
-				//if first responce was sended, but waiting lasts more than 1 hour: 
-				//remove entity and create new one
-				updateDao.remove(reply);
-				initReply(chatId, msgTime);
-				return;
-			}
+			sendMessage(chatId, questions[counter + 1]);
 		}
 	}
 	
@@ -109,6 +111,12 @@ public class UpdateHandler {
 		request.setQueryParameter("text", text);
 		CompletionStage<WSResponse> rs = request.get();
 		
+	}
+	
+	public void resendMsg(long chatId, Reply reply, long msgTime, String msgTxt) {
+		sendMessage(chatId, msgTxt);
+		reply.setMsgTime(msgTime);
+		updateDao.saveReply(reply);
 	}
 
 }
