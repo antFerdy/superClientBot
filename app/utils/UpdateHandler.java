@@ -1,14 +1,14 @@
 package utils;
 
-import java.util.Date;
 import java.util.concurrent.CompletionStage;
 
-import javax.inject.Inject;
-import play.libs.ws.*;
-import models.Message;
 import models.Reply;
 import models.Update;
 import models.dao.UpdateDAO;
+import play.db.jpa.JPAApi;
+import play.libs.ws.WSClient;
+import play.libs.ws.WSRequest;
+import play.libs.ws.WSResponse;
 
 public class UpdateHandler {
 	private WSClient ws;
@@ -18,8 +18,6 @@ public class UpdateHandler {
 	//private static final String url = "https://api.telegram.org/bot283960461:AAFkG67m6NWfHpPQ3vQN1KVKhu1buMh9m6M/sendMessage";
 	
 	
-	private static long chatId = 0L;
-	private static long firstMsgTime;
 	
 	
 	private static final String firtReply = "Привет! Я робот, собирающий отзывы о компаниях. Делаю Клиентов и компании ближе друг к другу. "
@@ -27,9 +25,9 @@ public class UpdateHandler {
 	private static final String secondReply = "В каком городе находится данная компания?";
 	
 	
-	public UpdateHandler(WSClient ws) {
+	public UpdateHandler(WSClient ws, JPAApi jpaApi) {
 		this.ws = ws;
-		this.updateDao = new UpdateDAO();
+		this.updateDao = new UpdateDAO(jpaApi);
 	}
 
 	public void handle(Update u) {
@@ -37,34 +35,37 @@ public class UpdateHandler {
 		System.out.println(msgTxt);
 		
 		if(msgTxt.trim().equalsIgnoreCase("/start")) {
-			chatId = u.getMessage().getChat().getId();
-			firstMsgTime = u.getMessage().getDate();
+			long chatId = u.getMessage().getChat().getId();
+			long firstMsgTime = u.getMessage().getDate();
 			
 			Reply r = new Reply();
+			r.setChatId(chatId);
 			r.setQuestionCount(1);
+			r.setMsgTime(firstMsgTime);
 			updateDao.saveReply(r);
 			
-			
 			sendMessage(chatId, firtReply);
-		} else {
-			
-			
-			
-			long id = u.getMessage().getChat().getId();
-			long newTime = u.getMessage().getDate();
-			
-			System.out.println("ID of old chat " + String.valueOf(chatId));
-			System.out.println("ID of new chat " + String.valueOf(id));
-			
-			if(id == chatId) {
-				System.out.println(new Date(newTime));
-				System.out.println(new Date(firstMsgTime));
-				
-				if(newTime - firstMsgTime < 36000L) {
-					sendMessage(chatId, secondReply);
-				}
-			}
-		}
+		} 
+		
+//		else {
+//			
+//			
+//			
+//			long id = u.getMessage().getChat().getId();
+//			long newTime = u.getMessage().getDate();
+//			
+//			System.out.println("ID of old chat " + String.valueOf(chatId));
+//			System.out.println("ID of new chat " + String.valueOf(id));
+//			
+//			if(id == chatId) {
+//				System.out.println(new Date(newTime));
+//				System.out.println(new Date(firstMsgTime));
+//				
+//				if(newTime - firstMsgTime < 36000L) {
+//					sendMessage(chatId, secondReply);
+//				}
+//			}
+//		}
 		
 		
 		

@@ -15,7 +15,7 @@ public class Reply {
 	@Column
 	private String street;
 	
-	@Column
+	@Column(name = "FIRST_REPLY")
 	private String firstReply;
 	
 	@Column
@@ -23,6 +23,11 @@ public class Reply {
 	
 	@Column
 	private int questionCount;
+
+	@Column(name = "LAST_MSG_TIME")
+	private long lastMsgTime;
+	
+	private long chatId;
 
 	public Long getId() {
 		return id;
@@ -71,12 +76,15 @@ public class Reply {
 	public void setQuestionCount(int questionCount) {
 		this.questionCount = questionCount;
 	}
+
+	public void setMsgTime(long msgTime) {
+		this.lastMsgTime = msgTime;
+		
+	}
+
+	public void setChatId(long chatId) {
+		this.chatId = chatId;
+	}
 	
-	
-	
-	
-//	@Column
-//	@ManyToOne
-//	public Client client;
 
 }

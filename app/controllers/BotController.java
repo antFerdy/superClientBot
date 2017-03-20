@@ -33,7 +33,7 @@ public class BotController extends Controller{
 		
 		try {
 			Update u = mapper.readValue(json.toString(), Update.class);
-			UpdateHandler handler = new UpdateHandler(ws);
+			UpdateHandler handler = new UpdateHandler(ws, jpaApi);
 			handler.handle(u);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
