@@ -58,7 +58,7 @@ public class UpdateHandler {
 			
 		//если был отправлен стикер или другой формат данных или пустое сообщение
 		} else if(msgTxt == null || msgTxt.trim().isEmpty()) {
-			resendMsg(chatId, reply, msgTime, "Формат ответа некорректен. Пожалуйста повторите ответ");
+			resendMsg(chatId, reply, msgTime, "Формат ответа некорректен. Отзыв о какой компании вы хотите оставить (название компании)?");
 		
 		//если прошло более часа, то делаем старый отзыв завершенным и инициализируем новый
 		} else if(msgTime - reply.getMsgTime() > 36000L) {
@@ -81,11 +81,11 @@ public class UpdateHandler {
 				try {
 					rating = Integer.valueOf(msgTxt);
 					if (rating > 10 || rating < 0) {
-						resendMsg(chatId, reply, msgTime, "Формат некорректен. Пожалуйста, поставьте рейтинг от 0 до 10. ");
+						resendMsg(chatId, reply, msgTime, "Формат некорректен. Пожалуйста, поставьте оценку от 0 до 10. ");
 					}
 					
 				} catch (NumberFormatException e) {
-					resendMsg(chatId, reply, msgTime, "Формат некорректен. Пожалуйста, поставьте рейтинг от 0 до 10.");
+					resendMsg(chatId, reply, msgTime, "Формат некорректен. Пожалуйста, поставьте оценку от 0 до 10.");
 				}
 				reply.setRating(rating);
 			}
