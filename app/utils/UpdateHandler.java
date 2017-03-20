@@ -83,7 +83,7 @@ public class UpdateHandler {
 					System.err.println("Format of rating is incorrect. Only numbers required");
 				}
 				reply.setRating(rating);
-			}
+			} 
 			
 			
 			
