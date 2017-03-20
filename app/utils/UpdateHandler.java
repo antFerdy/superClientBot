@@ -53,7 +53,7 @@ public class UpdateHandler {
 		System.out.println(msgTxt);
 		
 		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
-		if((reply == null && msgTxt == null) || msgTxt.trim().equalsIgnoreCase("/start")) {
+		if((reply == null && msgTxt == null) || msgTxt == "/start") {
 			initReply(chatId, msgTime);
 			
 		//если был отправлен стикер или другой формат данных или пустое сообщение
