@@ -17,7 +17,7 @@ public class UpdateHandler {
 	private static final String url = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
 	//private static final String url = "https://api.telegram.org/bot283960461:AAFkG67m6NWfHpPQ3vQN1KVKhu1buMh9m6M/sendMessage";
 	
-	private String[] questions = new String[3];
+	private String[] questions = new String[5];
 	
 	
 	
