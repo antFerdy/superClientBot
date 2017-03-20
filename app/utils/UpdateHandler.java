@@ -50,6 +50,8 @@ public class UpdateHandler {
 			System.out.println("REPLY IS NULL");
 		}
 		
+		System.out.println(msgTxt);
+		
 		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
 		if((reply == null && msgTxt == null) || msgTxt.trim().equalsIgnoreCase("/start")) {
 			initReply(chatId, msgTime);
