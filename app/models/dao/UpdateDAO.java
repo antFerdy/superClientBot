@@ -18,7 +18,7 @@ public class UpdateDAO {
 	
 	public Reply getReplyByChatId(long chatId) {
 		return (Reply) jpaApi.em()
-				.createQuery("select d from Reply d where d.chatId = :chatId order by d.id desc")
+				.createQuery("select d from Reply d where d.chatId = :chatId order by d.id desc limit 1")
 				.setParameter("chatId", chatId)
 				.getSingleResult();
 	}
