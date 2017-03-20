@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import models.Contact;
 import models.Update;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
@@ -42,11 +41,11 @@ public class BotController extends Controller{
 	
 	@Transactional
 	public Result get() {
-		Contact c = new Contact();
-		c.setName("RUS");
-		c.setEmail("r.zhu@aa.kz");
-		
-		jpaApi.em().persist(c);
+//		Contact c = new Contact();
+//		c.setName("RUS");
+//		c.setEmail("r.zhu@aa.kz");
+//		
+//		jpaApi.em().persist(c);
 		return ok("Hello guys! I am superClient Bot");
 	}
 }
