@@ -44,6 +44,10 @@ public class UpdateHandler {
 		//Получаем текст сообщения
 		String msgTxt = u.getMessage().getText();
 		
+		if(reply != null) {
+			System.out.println("REPLY IS NOT NULL");
+		}
+		
 		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
 		if((reply == null && msgTxt == null) || msgTxt.trim().equalsIgnoreCase("/start")) {
 			initReply(chatId, msgTime);
