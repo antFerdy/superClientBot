@@ -18,9 +18,13 @@ public class UpdateDAO {
 	
 	public Reply getReplyByChatId(long chatId) {
 		return (Reply) jpaApi.em()
-				.createQuery("select d from Reply d where d.chatId = :chatId")
+				.createQuery("select d from Reply d where d.chatId = :chatId and d.questionCount = 0")
 				.setParameter("chatId", chatId)
 				.getSingleResult();
+	}
+	
+	public void remove(Reply reply) {
+		jpaApi.em().remove(reply);
 	}
 
 }

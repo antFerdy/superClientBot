@@ -35,30 +35,40 @@ public class UpdateHandler {
 	}
 
 	public void handle(Update u) {
-		String msgTxt = u.getMessage().getText();
+		String msgTxt = u.getMessage().getText().trim();
 		long chatId = u.getMessage().getChat().getId();
+		long msgTime = u.getMessage().getDate();
 				
-		if(msgTxt.trim().equalsIgnoreCase("/start")) {
-			long firstMsgTime = u.getMessage().getDate();
-			
-			Reply r = new Reply();
-			r.setChatId(chatId);
-			r.setQuestionCount(0); //first asked question
-			r.setMsgTime(firstMsgTime);
-			updateDao.saveReply(r);
-			
-			sendMessage(chatId, questions[0]);
+		if(msgTxt.equalsIgnoreCase("/start")) {
+			initReply(chatId, msgTime);
 		} else {
-			
-			//get reply by chat id
+			//get recently created reply by chat id
 			Reply reply = updateDao.getReplyByChatId(chatId);
+			
+			//handle case when first message was not start
 			if(reply == null) {
-				System.err.println("reply is not found");
+				initReply(chatId, msgTime);
+				sendMessage(chatId, questions[0]);
 				return;
 			}
 			
-			//set data to entity
 			int counter = reply.getQuestionCount();
+			
+			//send responce
+			long newTime = u.getMessage().getDate();
+			if(newTime - reply.getMsgTime() < 36000L) {
+				sendMessage(chatId, questions[counter + 1]);
+				reply.setQuestionCount(counter + 1);
+			} else {
+				//if first responce was sended, but waiting lasts more than 1 hour: 
+				//remove entity and create new one
+				updateDao.remove(reply);
+				initReply(chatId, msgTime);
+				return;
+			}
+			
+			
+			//set data to entity
 			if(counter == 0) {
 				reply.setCompany(msgTxt);
 			} else if(counter == 1) {
@@ -75,14 +85,9 @@ public class UpdateHandler {
 				reply.setRating(rating);
 			}
 			
-			//send responce
-			long newTime = u.getMessage().getDate();
-			if(newTime - reply.getMsgTime() < 36000L) {
-				sendMessage(chatId, questions[counter + 1]);
-			}
+			
 			
 			//save entity
-			reply.setQuestionCount(counter + 1);
 			updateDao.saveReply(reply);
 		}
 		
@@ -91,6 +96,16 @@ public class UpdateHandler {
 		
 	}
 	
+	private void initReply(long chatId, long firstMsgTime) {
+		Reply r = new Reply();
+		r.setChatId(chatId);
+		r.setQuestionCount(0); //first asked question
+		r.setMsgTime(firstMsgTime);
+		updateDao.saveReply(r);
+		
+		sendMessage(chatId, questions[0]);
+	}
+
 	public void sendMessage(long chat_id, String text) {
 		WSRequest request = ws.url(url);
 		request.setQueryParameter("chat_id", String.valueOf(chat_id));
