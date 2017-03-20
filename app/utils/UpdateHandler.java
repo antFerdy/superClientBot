@@ -46,6 +46,8 @@ public class UpdateHandler {
 		
 		if(reply != null) {
 			System.out.println("REPLY IS NOT NULL");
+		} else {
+			System.out.println("REPLY IS NULL");
 		}
 		
 		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
