@@ -25,7 +25,7 @@ public class BotController extends Controller{
 	@Inject
 	JPAApi jpaApi;
 	
-	
+	@Transactional
 	public Result update() {
 		JsonNode json = request().body().asJson();
 		

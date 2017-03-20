@@ -13,7 +13,6 @@ public class UpdateDAO {
 		this.jpaApi = jpaApi;
 	}
 	
-	@Transactional
 	public void saveReply(Reply r) {
 		jpaApi.em().persist(r);
 	}
