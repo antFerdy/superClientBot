@@ -2,7 +2,6 @@ package models.dao;
 
 import models.Reply;
 import play.db.jpa.JPAApi;
-import play.db.jpa.Transactional;
 
 public class UpdateDAO {
 	
@@ -15,6 +14,13 @@ public class UpdateDAO {
 	
 	public void saveReply(Reply r) {
 		jpaApi.em().persist(r);
+	}
+	
+	public Reply getReplyByChatId(long chatId) {
+		return (Reply) jpaApi.em()
+				.createQuery("select d from Reply d where d.chatId = :chatId")
+				.setParameter("chatId", chatId)
+				.getSingleResult();
 	}
 
 }

@@ -10,6 +10,18 @@ public class Reply {
 	private Long id;
 	
 	@Column
+	private long chatId;
+	
+	@Column(name="COUNT_OF_QUEST")
+	private int questionCount;
+
+	@Column(name = "LAST_MSG_TIME")
+	private long lastMsgTime;
+	
+	@Column
+	private String company;
+	
+	@Column
 	private String city;
 	
 	@Column
@@ -21,14 +33,9 @@ public class Reply {
 	@Column
 	private int rating;
 	
-	@Column
-	private int questionCount;
-
-	@Column(name = "LAST_MSG_TIME")
-	private long lastMsgTime;
 	
-	@Column
-	private long chatId;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -82,9 +89,21 @@ public class Reply {
 		this.lastMsgTime = msgTime;
 		
 	}
+	
+	public long getMsgTime() {
+		return this.lastMsgTime;
+	}
 
 	public void setChatId(long chatId) {
 		this.chatId = chatId;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 	
 

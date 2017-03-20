@@ -1,21 +1,19 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import models.Contact;
+import models.Update;
+import play.db.jpa.JPAApi;
+import play.db.jpa.Transactional;
 import play.libs.ws.WSClient;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.db.jpa.JPAApi;
-import play.db.jpa.Transactional;
-import models.Contact;
-import models.TestEntity;
-import models.Update;
 import utils.UpdateHandler;
 
 public class BotController extends Controller{
