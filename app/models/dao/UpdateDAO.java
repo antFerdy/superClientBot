@@ -2,6 +2,7 @@ package models.dao;
 
 import models.Reply;
 import play.db.jpa.JPAApi;
+import play.db.jpa.Transactional;
 
 public class UpdateDAO {
 	
@@ -11,7 +12,8 @@ public class UpdateDAO {
 	public UpdateDAO(JPAApi jpaApi) {
 		this.jpaApi = jpaApi;
 	}
-
+	
+	@Transactional
 	public void saveReply(Reply r) {
 		jpaApi.em().persist(r);
 	}
