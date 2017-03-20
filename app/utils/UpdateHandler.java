@@ -45,7 +45,7 @@ public class UpdateHandler {
 		String msgTxt = u.getMessage().getText();
 		
 		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
-		if(msgTxt == "/start" || reply == null) {
+		if(msgTxt == "/start" || reply == null || (msgTxt == null && reply == null)) {
 			initReply(chatId, msgTime);
 			
 		//если был отправлен стикер или другой формат данных или пустое сообщение
