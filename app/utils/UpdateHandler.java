@@ -44,14 +44,6 @@ public class UpdateHandler {
 		//Получаем текст сообщения
 		String msgTxt = u.getMessage().getText();
 		
-		if(reply != null) {
-			System.out.println("REPLY IS NOT NULL");
-		} else {
-			System.out.println("REPLY IS NULL");
-		}
-		
-		System.out.println(msgTxt);
-		
 		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
 		if((reply == null && msgTxt == null) || msgTxt == "/start") {
 			initReply(chatId, msgTime);
@@ -82,10 +74,12 @@ public class UpdateHandler {
 					rating = Integer.valueOf(msgTxt);
 					if (rating > 10 || rating < 0) {
 						resendMsg(chatId, reply, msgTime, "Формат некорректен. Пожалуйста, поставьте оценку от 0 до 10. ");
+						return;
 					}
 					
 				} catch (NumberFormatException e) {
 					resendMsg(chatId, reply, msgTime, "Формат некорректен. Пожалуйста, поставьте оценку от 0 до 10.");
+					return;
 				}
 				reply.setRating(rating);
 			}
