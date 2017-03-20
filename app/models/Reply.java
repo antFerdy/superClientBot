@@ -27,6 +27,7 @@ public class Reply {
 	@Column(name = "LAST_MSG_TIME")
 	private long lastMsgTime;
 	
+	@Column
 	private long chatId;
 
 	public Long getId() {
