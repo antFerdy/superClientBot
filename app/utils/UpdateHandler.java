@@ -46,6 +46,14 @@ public class UpdateHandler {
 		
 		
 		if(msgTxt != null && msgTxt.trim().equalsIgnoreCase("/start")) {
+			//если юзер захотел заново запустить бота, то комитим первоначальную инициализацию
+			if(reply != null && reply.getQuestionCount() == 0) {
+				updateDao.remove(reply);
+			} else {
+				reply.setQuestionCount(4);
+				updateDao.saveReply(reply);
+			}
+			
 			initReply(chatId, msgTime);
 		}
 		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
