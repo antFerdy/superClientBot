@@ -42,14 +42,14 @@ public class UpdateHandler {
 		Reply reply = updateDao.getReplyByChatId(chatId);
 		
 		//Получаем текст сообщения
-		String msgTxt = u.getMessage().getText().trim();
+		String msgTxt = u.getMessage().getText();
 		
 		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
-		if(reply == null || msgTxt.equalsIgnoreCase("/start")) {
+		if(reply == null || msgTxt.trim().equalsIgnoreCase("/start")) {
 			initReply(chatId, msgTime);
 			
 		//если был отправлен стикер или другой формат данных или пустое сообщение
-		} else if(msgTxt.equals(null) || msgTxt.isEmpty()) {
+		} else if(msgTxt.equals(null) || msgTxt.trim().isEmpty()) {
 			resendMsg(chatId, reply, msgTime, "Формат ответа некорректен. Пожалуйста повторите ответ");
 		
 		//если прошло более часа, то делаем старый отзыв завершенным и инициализируем новый
