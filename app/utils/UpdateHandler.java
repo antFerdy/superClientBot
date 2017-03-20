@@ -83,9 +83,11 @@ public class UpdateHandler {
 					System.err.println("Format of rating is incorrect. Only numbers required");
 				}
 				reply.setRating(rating);
-			} 
-			
-			
+			} else if(counter == 4) {
+				System.out.println("The reply is over. we need to create new entity");
+				initReply(chatId, msgTime);
+				return;
+			}
 			
 			//save entity
 			updateDao.saveReply(reply);
