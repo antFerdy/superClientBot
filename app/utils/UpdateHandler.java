@@ -84,6 +84,7 @@ public class UpdateHandler {
 		
 		//если прошло более часа, то делаем старый отзыв завершенным и инициализируем новый
 		} else if(msgTime - reply.getMsgTime() > 36000L) {
+			System.out.println(msgTime - reply.getMsgTime());
 			reply.setQuestionCount(4);
 			updateDao.saveReply(reply);
 			
