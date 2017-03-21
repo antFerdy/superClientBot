@@ -2,6 +2,9 @@ package utils;
 
 import java.util.concurrent.CompletionStage;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
+
 import models.Client;
 import models.Message;
 import models.Reply;
@@ -19,8 +22,11 @@ public class UpdateHandler {
 	private UpdateDAO updateDao;
 	private UserDAO userDao;
 	
-	private static final String url = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
-	//private static final String url = "https://api.telegram.org/bot283960461:AAFkG67m6NWfHpPQ3vQN1KVKhu1buMh9m6M/sendMessage";
+	//SuperClientBot
+	//private static final String url = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
+	
+	//KnigaOtzyvovBot
+	private static final String url = "https://api.telegram.org/bot283960461:AAFkG67m6NWfHpPQ3vQN1KVKhu1buMh9m6M/sendMessage";
 	
 	private String[] questions = new String[5];
 	
@@ -92,6 +98,8 @@ public class UpdateHandler {
 				reply.setCity(msgTxt);
 			} else if(counter == 2) {
 				reply.setFirstReply(msgTxt);
+				
+				//saveMedia();
 			} else if(counter == 3) {
 				Integer rating = null;
 				try {
@@ -121,17 +129,7 @@ public class UpdateHandler {
 		}
 	}
 	
-	private void saveUser(Message message) {
-		User user = message.getFrom();
-		long chatId = message.getChat().getId();
-		
-		Client client = new Client();
-		client.setFirstName(user.getFirst_name());
-		client.setLastName(user.getLast_name());
-		client.setUsername(user.getUsername());
-		client.setChatId(chatId);
-		userDao.save(client);
-	}
+	
 
 	private void initReply(long chatId, long firstMsgTime) {
 		Reply r = new Reply();
@@ -155,6 +153,26 @@ public class UpdateHandler {
 		sendMessage(chatId, msgTxt);
 		reply.setMsgTime(msgTime);
 		updateDao.saveReply(reply);
+	}
+	
+	
+//	private void saveMedia() {
+//		// TODO Auto-generated method stub
+//		FirebaseApp app = FirebaseApp.getInstance();
+//		
+//		
+//	}
+
+	private void saveUser(Message message) {
+		User user = message.getFrom();
+		long chatId = message.getChat().getId();
+		
+		Client client = new Client();
+		client.setFirstName(user.getFirst_name());
+		client.setLastName(user.getLast_name());
+		client.setUsername(user.getUsername());
+		client.setChatId(chatId);
+		userDao.save(client);
 	}
 
 }

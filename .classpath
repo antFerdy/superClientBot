@@ -66,6 +66,27 @@
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-logback_2.11/jars/play-logback_2.11-2.5.3.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/ch.qos.logback/logback-core/jars/logback-core-1.1.4.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/ch.qos.logback/logback-classic/jars/logback-classic-1.1.4.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-java-jdbc_2.11/jars/play-java-jdbc_2.11-2.5.3.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-jdbc_2.11/jars/play-jdbc_2.11-2.5.3.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-jdbc-api_2.11/jars/play-jdbc-api_2.11-2.5.3.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/com.jolbox/bonecp/0.8.0.RELEASE/bundles/bonecp.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.zaxxer/HikariCP/bundles/HikariCP-2.4.3.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/com.googlecode.usc/jdbcdslog/1.0.6.2/jars/jdbcdslog.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.h2database/h2/jars/h2-1.4.191.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/tyrex/tyrex/1.0.1/jars/tyrex.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.postgresql/postgresql/bundles/postgresql-9.4.1208.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-java-jpa_2.11/jars/play-java-jpa_2.11-2.5.3.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/jars/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.hibernate/hibernate-entitymanager/jars/hibernate-entitymanager-5.1.0.Final.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.jboss.logging/jboss-logging/jars/jboss-logging-3.3.0.Final.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.hibernate/hibernate-core/jars/hibernate-core-5.1.0.Final.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/org.javassist/javassist/3.20.0-GA/bundles/javassist.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/antlr/antlr/jars/antlr-2.7.7.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.apache.geronimo.specs/geronimo-jta_1.1_spec/jars/geronimo-jta_1.1_spec-1.1.1.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.jboss/jandex/bundles/jandex-2.0.0.Final.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.fasterxml/classmate/bundles/classmate-1.3.0.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/dom4j/dom4j/jars/dom4j-1.6.1.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.hibernate.common/hibernate-commons-annotations/jars/hibernate-commons-annotations-5.0.1.Final.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-java-ws_2.11/jars/play-java-ws_2.11-2.5.3.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-ws_2.11/jars/play-ws_2.11-2.5.3.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.asynchttpclient/async-http-client/jars/async-http-client-2.0.2.jar"/>
@@ -76,30 +97,18 @@
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.asynchttpclient/netty-resolver/jars/netty-resolver-2.0.2.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/org.slf4j/slf4j-api/1.7.21/jars/slf4j-api.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.asynchttpclient/netty-codec-dns/jars/netty-codec-dns-2.0.2.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/org.javassist/javassist/3.20.0-GA/bundles/javassist.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/oauth.signpost/signpost-core/jars/signpost-core-1.2.1.2.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/oauth.signpost/signpost-commonshttp4/jars/signpost-commonshttp4-1.2.1.2.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-java-jdbc_2.11/jars/play-java-jdbc_2.11-2.5.3.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-jdbc_2.11/jars/play-jdbc_2.11-2.5.3.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-jdbc-api_2.11/jars/play-jdbc-api_2.11-2.5.3.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/com.jolbox/bonecp/0.8.0.RELEASE/bundles/bonecp.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.zaxxer/HikariCP/bundles/HikariCP-2.4.3.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/com.googlecode.usc/jdbcdslog/1.0.6.2/jars/jdbcdslog.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.h2database/h2/jars/h2-1.4.191.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/tyrex/tyrex/1.0.1/jars/tyrex.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-java-jpa_2.11/jars/play-java-jpa_2.11-2.5.3.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/jars/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.hibernate/hibernate-entitymanager/jars/hibernate-entitymanager-5.1.0.Final.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.jboss.logging/jboss-logging/jars/jboss-logging-3.3.0.Final.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.hibernate/hibernate-core/jars/hibernate-core-5.1.0.Final.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/antlr/antlr/jars/antlr-2.7.7.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.apache.geronimo.specs/geronimo-jta_1.1_spec/jars/geronimo-jta_1.1_spec-1.1.1.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.jboss/jandex/bundles/jandex-2.0.0.Final.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.fasterxml/classmate/bundles/classmate-1.3.0.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/dom4j/dom4j/jars/dom4j-1.6.1.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.hibernate.common/hibernate-commons-annotations/jars/hibernate-commons-annotations-5.0.1.Final.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-cache_2.11/jars/play-cache_2.11-2.5.3.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/net.sf.ehcache/ehcache-core/2.6.11/jars/ehcache-core.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.google.firebase/firebase-admin/jars/firebase-admin-4.0.1.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.google.api-client/google-api-client-gson/jars/google-api-client-gson-1.21.0.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.google.api-client/google-api-client/jars/google-api-client-1.21.0.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.google.oauth-client/google-oauth-client/jars/google-oauth-client-1.21.0.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.google.http-client/google-http-client/jars/google-http-client-1.21.0.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.google.http-client/google-http-client-jackson2/jars/google-http-client-jackson2-1.21.0.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.google.guava/guava-jdk5/bundles/guava-jdk5-17.0.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.google.http-client/google-http-client-gson/jars/google-http-client-gson-1.21.0.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.google.code.gson/gson/jars/gson-2.6.2.jar"/>
+  <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/org.json/json/bundles/json-20160212.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/.ivy2/cache/com.typesafe.play/play-test_2.11/jars/play-test_2.11-2.5.3.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/junit/junit/4.12/jars/junit.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/org.hamcrest/hamcrest-core/1.3/jars/hamcrest-core.jar"/>
@@ -127,7 +136,6 @@
   <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/org.seleniumhq.selenium/selenium-chrome-driver/2.48.2/jars/selenium-chrome-driver.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/org.seleniumhq.selenium/selenium-remote-driver/2.48.2/jars/selenium-remote-driver.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/cglib/cglib-nodep/2.1_3/jars/cglib-nodep.jar"/>
-  <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/com.google.code.gson/gson/2.3.1/jars/gson.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/org.seleniumhq.selenium/selenium-api/2.48.2/jars/selenium-api.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/org.apache.commons/commons-exec/1.3/jars/commons-exec.jar"/>
   <classpathentry kind="lib" path="/Users/Rustem/Documents/activator-dist-1.3.12/repository/net.java.dev.jna/jna/4.1.0/jars/jna.jar"/>

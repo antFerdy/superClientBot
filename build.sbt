@@ -19,5 +19,6 @@ libraryDependencies += javaJpa
 libraryDependencies += "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final"
 
 libraryDependencies += javaWs
+libraryDependencies += "com.google.firebase" % "firebase-admin" % "4.0.1"
 
 PlayKeys.externalizeResources := false
