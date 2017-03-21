@@ -85,7 +85,7 @@ public class UpdateHandler {
 			resendMsg(chatId, reply, msgTime, "Формат ответа некорректен. Отзыв о какой компании вы хотите оставить (название компании)?");
 		
 		//если прошло более часа, то делаем старый отзыв завершенным и инициализируем новый
-		} else if(msgTime - reply.getMsgTime() > 36000L) {
+		} else if(msgTime - reply.getMsgTime() > 600L) {
 			
 			reply.setQuestionCount(4);
 			updateDao.saveReply(reply);
