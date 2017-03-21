@@ -6,8 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class User {
 	private long id;
 	private String first_name;
-	private String username;
 	private String last_name;
+	private String username;
+	
 	
 	public long getId() {
 		return id;

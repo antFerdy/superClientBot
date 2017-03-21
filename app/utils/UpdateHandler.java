@@ -2,9 +2,13 @@ package utils;
 
 import java.util.concurrent.CompletionStage;
 
+import models.Client;
+import models.Message;
 import models.Reply;
 import models.Update;
+import models.User;
 import models.dao.UpdateDAO;
+import models.dao.UserDAO;
 import play.db.jpa.JPAApi;
 import play.libs.ws.WSClient;
 import play.libs.ws.WSRequest;
@@ -13,18 +17,17 @@ import play.libs.ws.WSResponse;
 public class UpdateHandler {
 	private WSClient ws;
 	private UpdateDAO updateDao;
+	private UserDAO userDao;
 	
 	private static final String url = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
 	//private static final String url = "https://api.telegram.org/bot283960461:AAFkG67m6NWfHpPQ3vQN1KVKhu1buMh9m6M/sendMessage";
 	
 	private String[] questions = new String[5];
 	
-	
-	
-	
 	public UpdateHandler(WSClient ws, JPAApi jpaApi) {
 		this.ws = ws;
 		this.updateDao = new UpdateDAO(jpaApi);
+		this.userDao = new UserDAO(jpaApi);
 
 		questions[0] = "Привет! Я робот, собирающий отзывы о компаниях. Делаю Клиентов и компании ближе друг к другу. "
 				+ "\nОтзыв о какой компании вы хотите оставить (название компании)?";
@@ -37,6 +40,8 @@ public class UpdateHandler {
 	public void handle(Update u) {
 		long chatId = u.getMessage().getChat().getId();
 		long msgTime = u.getMessage().getDate();
+		
+		saveUserIfNew(u.getMessage());
 		
 		//Получаем сущность отзыва по чат айди
 		Reply reply = updateDao.getReplyByChatId(chatId);
@@ -111,6 +116,20 @@ public class UpdateHandler {
 		}
 	}
 	
+	private void saveUserIfNew(Message message) {
+		User user = message.getFrom();
+		long chatId = message.getChat().getId();
+		
+		if(!userDao.isUserExist(chatId)) {
+			Client client = new Client();
+			client.setFirstName(user.getFirst_name());
+			client.setLastName(user.getLast_name());
+			client.setUsername(user.getUsername());
+			client.setChatId(chatId);
+			userDao.save(client);
+		}
+	}
+
 	private void initReply(long chatId, long firstMsgTime) {
 		Reply r = new Reply();
 		r.setChatId(chatId);
