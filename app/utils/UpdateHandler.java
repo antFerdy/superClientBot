@@ -57,6 +57,8 @@ public class UpdateHandler {
 		//Получаем сущность отзыва по чат айди
 		Reply reply = updateDao.getReplyByChatId(chatId);
 		
+		System.out.println(msgTime - reply.getMsgTime());
+		
 		//Получаем текст сообщения
 		String msgTxt = u.getMessage().getText();
 		
@@ -84,7 +86,7 @@ public class UpdateHandler {
 		
 		//если прошло более часа, то делаем старый отзыв завершенным и инициализируем новый
 		} else if(msgTime - reply.getMsgTime() > 36000L) {
-			System.out.println(msgTime - reply.getMsgTime());
+			
 			reply.setQuestionCount(4);
 			updateDao.saveReply(reply);
 			
