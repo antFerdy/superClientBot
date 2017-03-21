@@ -29,8 +29,7 @@ public class UpdateHandler {
 		this.updateDao = new UpdateDAO(jpaApi);
 		this.userDao = new UserDAO(jpaApi);
 
-		questions[0] = "Привет! Я робот, собирающий отзывы о компаниях. Делаю Клиентов и компании ближе друг к другу. "
-				+ "\nОтзыв о какой компании вы хотите оставить (название компании)?";
+		questions[0] = "Отзыв о какой компании вы хотите оставить (название компании)?";
 		questions[1] = "В каком городе и на какой улице находится данная компания?";
 		questions[2] = "Напишите, пожалуйста, ваш отзыв о данной компании";
 		questions[3] = "Спасибо за отзыв! Насколько вероятно, что Вы порекомендуете данную компанию другу или коллеге? (От 0 до 10 варианты оценок)";
@@ -41,7 +40,13 @@ public class UpdateHandler {
 		long chatId = u.getMessage().getChat().getId();
 		long msgTime = u.getMessage().getDate();
 		
-		saveUserIfNew(u.getMessage());
+		//если пользователь впервые запускает бот, то поясняем кто мы и сохраняем клиента в базу
+		if(!userDao.isUserExist(chatId)) {
+			questions[0] = "Привет! Я робот, собирающий отзывы о компаниях. Делаю Клиентов и компании ближе друг к другу. "
+					+ "\nОтзыв о какой компании вы хотите оставить (название компании)?";
+			
+			saveUser(u.getMessage());
+		}
 		
 		//Получаем сущность отзыва по чат айди
 		Reply reply = updateDao.getReplyByChatId(chatId);
@@ -116,18 +121,16 @@ public class UpdateHandler {
 		}
 	}
 	
-	private void saveUserIfNew(Message message) {
+	private void saveUser(Message message) {
 		User user = message.getFrom();
 		long chatId = message.getChat().getId();
 		
-		if(!userDao.isUserExist(chatId)) {
-			Client client = new Client();
-			client.setFirstName(user.getFirst_name());
-			client.setLastName(user.getLast_name());
-			client.setUsername(user.getUsername());
-			client.setChatId(chatId);
-			userDao.save(client);
-		}
+		Client client = new Client();
+		client.setFirstName(user.getFirst_name());
+		client.setLastName(user.getLast_name());
+		client.setUsername(user.getUsername());
+		client.setChatId(chatId);
+		userDao.save(client);
 	}
 
 	private void initReply(long chatId, long firstMsgTime) {

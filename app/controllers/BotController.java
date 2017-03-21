@@ -1,7 +1,5 @@
 package controllers;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -32,20 +30,14 @@ public class BotController extends Controller{
 			Update u = mapper.readValue(json.toString(), Update.class);
 			UpdateHandler handler = new UpdateHandler(ws, jpaApi);
 			handler.handle(u);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			return internalServerError(e.getMessage());
 		}
-		return ok("Hello guys! I am superClient Bot");
+		return ok();
 	}
 	
 	@Transactional
 	public Result get() {
-//		Contact c = new Contact();
-//		c.setName("RUS");
-//		c.setEmail("r.zhu@aa.kz");
-//		
-//		jpaApi.em().persist(c);
 		return ok("Hello guys! I am superClient Bot");
 	}
 }
