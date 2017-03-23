@@ -2,9 +2,6 @@ package utils;
 
 import java.util.concurrent.CompletionStage;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.FirebaseDatabase;
-
 import models.Client;
 import models.Message;
 import models.Reply;
@@ -23,7 +20,10 @@ public class UpdateHandler {
 	private UserDAO userDao;
 	
 	//SuperClientBot
-	//private static final String url = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
+	private static final String urlForNotification = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
+	//chat if of admin
+	private static final long adminChatId = 308064562;
+	private static final long salimChatId = 358192391;
 	
 	//KnigaOtzyvovBot
 	private static final String url = "https://api.telegram.org/bot283960461:AAFkG67m6NWfHpPQ3vQN1KVKhu1buMh9m6M/sendMessage";
@@ -46,11 +46,13 @@ public class UpdateHandler {
 		long chatId = u.getMessage().getChat().getId();
 		long msgTime = u.getMessage().getDate();
 		
-		//если пользователь впервые запускает бот, то поясняем кто мы и сохраняем клиента в базу
+		//если пользователь впервые запускает бот, то поясняем кто мы и сохраняем клиента в базу +отправляем уведомление
 		if(!userDao.isUserExist(chatId)) {
 			questions[0] = "Привет! Я робот, собирающий отзывы о компаниях. Делаю Клиентов и компании ближе друг к другу.😀"
 					+ "\nОтзыв о какой компании вы хотите оставить (название компании)?";
 			saveUser(u.getMessage());
+			sendNotifAboutNewUser(adminChatId, "New user was created: " + u.getMessage().getFrom().getFirst_name());
+			sendNotifAboutNewUser(salimChatId, "New user was created: " + u.getMessage().getFrom().getFirst_name());
 		}
 		//Получаем сущность отзыва по чат айди
 		Reply reply = updateDao.getReplyByChatId(chatId);
@@ -125,8 +127,6 @@ public class UpdateHandler {
 			sendMessage(chatId, questions[counter + 1]);
 		}
 	}
-	
-	
 
 	private void initReply(long chatId, long firstMsgTime) {
 		Reply r = new Reply();
@@ -153,10 +153,6 @@ public class UpdateHandler {
 	}
 	
 	
-	private void processMedia() {
-		
-		
-	}
 
 	private void saveUser(Message message) {
 		User user = message.getFrom();
@@ -168,6 +164,18 @@ public class UpdateHandler {
 		client.setUsername(user.getUsername());
 		client.setChatId(chatId);
 		userDao.save(client);
+	}
+	
+	private void sendNotifAboutNewUser(long chat_id, String text) {
+		WSRequest request = ws.url(urlForNotification);
+		request.setQueryParameter("chat_id", String.valueOf(chat_id));
+		request.setQueryParameter("text", text);
+		CompletionStage<WSResponse> rs = request.get();
+		
+	}
+	
+	private void processMedia() {
+		
 	}
 
 }
