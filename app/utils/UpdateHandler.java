@@ -23,7 +23,7 @@ public class UpdateHandler {
 	private static final String urlForNotification = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
 	//chat if of admin
 	private static final long adminChatId = 308064562;
-	private static final long salimChatId = 358192391;
+	private static final long salimChatId = 98166212;
 	
 	//KnigaOtzyvovBot
 	private static final String url = "https://api.telegram.org/bot283960461:AAFkG67m6NWfHpPQ3vQN1KVKhu1buMh9m6M/sendMessage";
