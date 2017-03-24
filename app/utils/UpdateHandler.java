@@ -126,16 +126,17 @@ public class UpdateHandler {
 			updateDao.saveReply(reply);
 			
 			if(counter == 0) {
-				askLocation(chatId, "Пожалуйста, отправьте адрес заведения");
+				postMessage(chatId, "Пожалуйста, отправьте адрес заведения", getKeyboards());
 				return;
 			}
 			
 			//send responce
-			sendMessage(chatId, questions[counter + 1]);
+//			sendMessage(chatId, questions[counter + 1]);
+			postMessage(chatId, questions[counter + 1], null);
 		}
 	}
 
-	private void askLocation(long chat_id, String text) {
+	private void postMessage(long chat_id, String text, ObjectNode reply_markup) {
 		WSRequest request = ws.url(url);
 		request.setQueryParameter("chat_id", String.valueOf(chat_id));
 		request.setQueryParameter("text", text);
@@ -143,14 +144,15 @@ public class UpdateHandler {
 		ObjectNode postObj = Json.newObject();
 		postObj.put("chat_id", String.valueOf(chat_id));
 		postObj.put("text", text);
-		
+		postObj.put("reply_markup", reply_markup);
+		CompletionStage<WSResponse> rs = request.post(postObj);
+	}
+
+	private ObjectNode getKeyboards() {
 		ObjectNode btn = Json.newObject().put("request_location", true).put("text", "Отправить местоположение");
-		
 		ObjectNode reply_markup = Json.newObject();
 		reply_markup.put("keyboard", Json.newArray().add(Json.newArray().add(btn)));
-		postObj.put("reply_markup", reply_markup);
-
-		CompletionStage<WSResponse> rs = request.post(postObj);
+		return reply_markup;
 	}
 
 	private void initReply(long chatId, long firstMsgTime) {
