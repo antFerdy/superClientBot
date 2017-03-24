@@ -2,6 +2,8 @@ package utils;
 
 import java.util.concurrent.CompletionStage;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import models.Client;
 import models.Message;
 import models.Reply;
@@ -10,6 +12,7 @@ import models.User;
 import models.dao.UpdateDAO;
 import models.dao.UserDAO;
 import play.db.jpa.JPAApi;
+import play.libs.Json;
 import play.libs.ws.WSClient;
 import play.libs.ws.WSRequest;
 import play.libs.ws.WSResponse;
@@ -21,7 +24,7 @@ public class UpdateHandler {
 	
 	//SuperClientBot
 	private static final String urlForNotification = "https://api.telegram.org/bot283733008:AAGYER7EsbD0ESpkJ3tsaBJgvAet6sg8UiI/sendMessage";
-	//chat if of admin
+	//chat id of admins
 	private static final long adminChatId = 308064562;
 	private static final long salimChatId = 98166212;
 	
@@ -122,10 +125,32 @@ public class UpdateHandler {
 			//save entity
 			updateDao.saveReply(reply);
 			
+			if(counter == 0) {
+				askLocation(chatId, "Пожалуйста, отправьте адрес заведения");
+				return;
+			}
 			
 			//send responce
 			sendMessage(chatId, questions[counter + 1]);
 		}
+	}
+
+	private void askLocation(long chat_id, String text) {
+		WSRequest request = ws.url(url);
+		request.setQueryParameter("chat_id", String.valueOf(chat_id));
+		request.setQueryParameter("text", text);
+		
+		ObjectNode postObj = Json.newObject();
+		postObj.put("chat_id", String.valueOf(chat_id));
+		postObj.put("text", text);
+		
+		ObjectNode btn = Json.newObject().put("request_location", true).put("text", "Отправить местоположение");
+		
+		ObjectNode reply_markup = Json.newObject();
+		reply_markup.put("keyboard", Json.newArray().add(Json.newArray().add(btn)));
+		postObj.put("reply_markup", reply_markup);
+
+		CompletionStage<WSResponse> rs = request.post(postObj);
 	}
 
 	private void initReply(long chatId, long firstMsgTime) {
