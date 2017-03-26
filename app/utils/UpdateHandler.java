@@ -125,14 +125,15 @@ public class UpdateHandler {
 			//save entity
 			updateDao.saveReply(reply);
 			
+			//для адреса отправляем юзеру кнопку
 			if(counter == 0) {
-				postMessage(chatId, "Пожалуйста, отправьте адрес заведения", getKeyboards());
+				postMessage(chatId, "Пожалуйста, отправьте или напишите адрес заведения (город, улицу)", getKeyboards());
 				return;
 			}
 			
 			//send responce
-//			sendMessage(chatId, questions[counter + 1]);
-			postMessage(chatId, questions[counter + 1], null);
+			sendMessage(chatId, questions[counter + 1]);
+			//postMessage(chatId, questions[counter + 1], null);
 		}
 	}
 
@@ -144,7 +145,9 @@ public class UpdateHandler {
 		ObjectNode postObj = Json.newObject();
 		postObj.put("chat_id", String.valueOf(chat_id));
 		postObj.put("text", text);
-		postObj.put("reply_markup", reply_markup);
+		//postObj.put("reply_markup", reply_markup);
+		postObj.put("InlineKeyboardMarkup", reply_markup);
+		
 		CompletionStage<WSResponse> rs = request.post(postObj);
 	}
 
