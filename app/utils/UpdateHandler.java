@@ -197,9 +197,8 @@ public class UpdateHandler {
 		ObjectNode postObj = Json.newObject();
 		postObj.put("chat_id", String.valueOf(chat_id));
 		postObj.put("text", text);
-		//postObj.put("reply_markup", reply_markup);
 		if(reply_markup != null)
-			postObj.put("ReplyKeyboardMarkup", reply_markup);
+			postObj.put("reply_markup", reply_markup);
 		
 		CompletionStage<WSResponse> rs = request.post(postObj);
 	}
