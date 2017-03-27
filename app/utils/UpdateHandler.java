@@ -11,6 +11,7 @@ import models.Update;
 import models.User;
 import models.dao.UpdateDAO;
 import models.dao.UserDAO;
+import play.Logger;
 import play.db.jpa.JPAApi;
 import play.libs.Json;
 import play.libs.ws.WSClient;
@@ -127,7 +128,9 @@ public class UpdateHandler {
 			
 			//для адреса отправляем юзеру кнопку
 			if(counter == 0) {
-				postMessage(chatId, "Пожалуйста, отправьте или напишите адрес заведения (город, улицу)", getKeyboards());
+				ObjectNode kBoard = getKeyboards();
+				Logger.info(kBoard.asText());
+				postMessage(chatId, "Пожалуйста, отправьте или напишите адрес заведения (город, улицу)", kBoard);
 				return;
 			}
 			
