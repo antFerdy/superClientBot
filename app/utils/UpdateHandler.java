@@ -199,7 +199,7 @@ public class UpdateHandler {
 		postObj.put("text", text);
 		//postObj.put("reply_markup", reply_markup);
 		if(reply_markup != null)
-			postObj.put("InlineKeyboardMarkup", reply_markup);
+			postObj.put("ReplyKeyboardMarkup", reply_markup);
 		
 		CompletionStage<WSResponse> rs = request.post(postObj);
 	}
