@@ -202,7 +202,7 @@ public class UpdateHandler {
 	}
 
 	private ObjectNode getKeyboards() {
-		ObjectNode btn = Json.newObject().put("request_location", true).put("text", "Отправить местоположение");
+		ObjectNode btn = Json.newObject().put("request_location", true).put("text", "Отправить текущее местоположение");
 		ObjectNode reply_markup = Json.newObject();
 		reply_markup.put("keyboard", Json.newArray().add(Json.newArray().add(btn)));
 		return reply_markup;
