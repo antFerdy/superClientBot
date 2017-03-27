@@ -137,26 +137,7 @@ public class UpdateHandler {
 		}
 	}
 
-	private void postMessage(long chat_id, String text, ObjectNode reply_markup) {
-		WSRequest request = ws.url(url);
-		request.setQueryParameter("chat_id", String.valueOf(chat_id));
-		request.setQueryParameter("text", text);
-		
-		ObjectNode postObj = Json.newObject();
-		postObj.put("chat_id", String.valueOf(chat_id));
-		postObj.put("text", text);
-		//postObj.put("reply_markup", reply_markup);
-		postObj.put("InlineKeyboardMarkup", reply_markup);
-		
-		CompletionStage<WSResponse> rs = request.post(postObj);
-	}
-
-	private ObjectNode getKeyboards() {
-		ObjectNode btn = Json.newObject().put("request_location", true).put("text", "Отправить местоположение");
-		ObjectNode reply_markup = Json.newObject();
-		reply_markup.put("keyboard", Json.newArray().add(Json.newArray().add(btn)));
-		return reply_markup;
-	}
+	
 
 	private void initReply(long chatId, long firstMsgTime) {
 		Reply r = new Reply();
@@ -206,6 +187,25 @@ public class UpdateHandler {
 	
 	private void processMedia() {
 		
+	}
+	
+	private void postMessage(long chat_id, String text, ObjectNode reply_markup) {
+		WSRequest request = ws.url(url);
+		ObjectNode postObj = Json.newObject();
+		postObj.put("chat_id", String.valueOf(chat_id));
+		postObj.put("text", text);
+		//postObj.put("reply_markup", reply_markup);
+		if(reply_markup != null)
+			postObj.put("InlineKeyboardMarkup", reply_markup);
+		
+		CompletionStage<WSResponse> rs = request.post(postObj);
+	}
+
+	private ObjectNode getKeyboards() {
+		ObjectNode btn = Json.newObject().put("request_location", true).put("text", "Отправить местоположение");
+		ObjectNode reply_markup = Json.newObject();
+		reply_markup.put("keyboard", Json.newArray().add(Json.newArray().add(btn)));
+		return reply_markup;
 	}
 
 }
