@@ -33,6 +33,9 @@ public class Reply {
 	@Column
 	private int rating;
 	
+	@Column
+	private boolean isFinished;
+	
 	
 	
 	
@@ -104,6 +107,14 @@ public class Reply {
 
 	public void setCompany(String company) {
 		this.company = company;
+	}
+
+	public boolean isFinished() {
+		return isFinished;
+	}
+
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
 	}
 	
 

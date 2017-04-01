@@ -35,4 +35,11 @@ public class UpdateDAO {
 		jpaApi.em().remove(reply);
 	}
 
+	public Reply getLastUnfinishedReply(long chatId) {
+		return (Reply) jpaApi.em()
+		.createQuery("select d from Reply d where d.chatId = :chatId and d.isFinished = false")
+		.setParameter("chatId", chatId)
+		.getSingleResult();
+	}
+
 }

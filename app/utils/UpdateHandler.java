@@ -11,7 +11,6 @@ import models.Update;
 import models.User;
 import models.dao.UpdateDAO;
 import models.dao.UserDAO;
-import play.Logger;
 import play.db.jpa.JPAApi;
 import play.libs.Json;
 import play.libs.ws.WSClient;
@@ -32,7 +31,7 @@ public class UpdateHandler {
 	//KnigaOtzyvovBot
 	private static final String url = "https://api.telegram.org/bot283960461:AAFkG67m6NWfHpPQ3vQN1KVKhu1buMh9m6M/sendMessage";
 	
-	private String[] questions = new String[5];
+	private static final String[] questions = new String[5];
 	
 	public UpdateHandler(WSClient ws, JPAApi jpaApi) {
 		this.ws = ws;
@@ -45,59 +44,70 @@ public class UpdateHandler {
 		questions[3] = "Спасибо за отзыв! Насколько вероятно, что Вы порекомендуете данную компанию другу или коллеге? (От 0 до 10 варианты оценок) 😉";
 		questions[4] = "Благодарю за отзыв и оценку!👌👍";
 	}
-
-	public void handle(Update u) {
-		long chatId = u.getMessage().getChat().getId();
-		long msgTime = u.getMessage().getDate();
+	
+	
+	public void handleUpdate(Update update) {
+		long chatId = update.getMessage().getChat().getId();
+		long msgTime = update.getMessage().getDate();
+		Reply reply = updateDao.getLastUnfinishedReply(chatId);
 		
 		//если пользователь впервые запускает бот, то поясняем кто мы и сохраняем клиента в базу +отправляем уведомление
 		if(!userDao.isUserExist(chatId)) {
-			questions[0] = "Привет! Я робот, собирающий отзывы о компаниях. Делаю Клиентов и компании ближе друг к другу.😀"
+			String firstQuestion = "Привет! Я робот, собирающий отзывы о компаниях. Делаю Клиентов и компании ближе друг к другу.😀"
 					+ "\nОтзыв о какой компании вы хотите оставить (название компании)?";
-			saveUser(u.getMessage());
-			sendNotifAboutNewUser(adminChatId, "New user was created: " + u.getMessage().getFrom().getFirst_name());
-			sendNotifAboutNewUser(salimChatId, "New user was created: " + u.getMessage().getFrom().getFirst_name());
-		}
-		//Получаем сущность отзыва по чат айди
-		Reply reply = updateDao.getReplyByChatId(chatId);
-		
-		//Получаем текст сообщения
-		String msgTxt = u.getMessage().getText();
-		
-		//если юзер захотел заново запустить бота, то комитим первоначальную инициализацию
-		if(msgTxt != null && msgTxt.trim().equalsIgnoreCase("/start")) {
-			
-			if(reply != null) {
-				if(reply.getQuestionCount() == 1) {
-					updateDao.remove(reply);
-				} else {
-					reply.setQuestionCount(4);
-					updateDao.saveReply(reply);
-				}
-			}
+			saveUser(update.getMessage());
+			sendNotifAboutNewUser(adminChatId, "New user was created: " + update.getMessage().getFrom().getFirst_name());
+			sendNotifAboutNewUser(salimChatId, "New user was created: " + update.getMessage().getFrom().getFirst_name());
 			
 			initReply(chatId, msgTime);
-		}
-		//если вопросы ранее не задавались, или юзер хочет заново начать, то запускаем первый вопрос
-		else if(reply == null || (msgTxt == null && reply == null)) {
+			sendMessage(chatId, firstQuestion);
+		} else if(reply == null) { //если до этого вопросов не задавалось
 			initReply(chatId, msgTime);
-			
-		//если был отправлен стикер или другой формат данных или пустое сообщение
-		} else if((msgTxt == null || msgTxt.trim().isEmpty()) && reply.getQuestionCount() != 1) {
-			resendMsg(chatId, reply, msgTime, "Формат ответа некорректен. Отзыв о какой компании вы хотите оставить (название компании)?");
-		
-		//если прошло более часа, то делаем старый отзыв завершенным и инициализируем новый
-		} else if(msgTime - reply.getMsgTime() > 3600L) {
-			reply.setQuestionCount(4);
+			sendMessage(chatId, questions[0]);
+		} else if(msgTime - reply.getMsgTime() > 3600L) { //если прошло более часа
+			reply.setFinished(true);
 			updateDao.saveReply(reply);
 			
 			initReply(chatId, msgTime);
+			sendMessage(chatId, questions[0]);
+		} else if(update.getMessage().getText() == "/start") { //если хочет заново запустить отзыв
+			reply.setFinished(true);
+			updateDao.saveReply(reply);
+			
+			initReply(chatId, msgTime);
+			sendMessage(chatId, questions[0]);
 		} else {
-			int counter = reply.getQuestionCount();
+			handleCheckedUpdate(update, reply);
+		}
+	}
+
+	
+	
+	
+	public void handleCheckedUpdate(Update u, Reply reply) {
+		long chatId = u.getMessage().getChat().getId();
+		long msgTime = u.getMessage().getDate();
+		String msgTxt = u.getMessage().getText();
+		int counter = reply.getQuestionCount();
+			
+		//если был отправлен стикер или другой формат данных или пустое сообщение
+		if((msgTxt == null || msgTxt.trim().isEmpty()) && reply.getQuestionCount() != 1) {
+			resendMsg(chatId, reply, msgTime, questions[counter]);
+		} else {
+			//set time and counter
+			reply.setMsgTime(msgTime);
+			reply.setQuestionCount(counter + 1);
 			
 			//set data to entity
 			if(counter == 0) {
 				reply.setCompany(msgTxt);
+				ObjectNode kBoard = getKeyboards();
+				
+				
+				//save entity
+				updateDao.saveReply(reply);
+				postMessage(chatId, questions[1], kBoard);
+				return;
 			} else if(counter == 1) {
 				reply.setCity(msgTxt);
 			} else if(counter == 2) {
@@ -118,45 +128,23 @@ public class UpdateHandler {
 					return;
 				}
 				reply.setRating(rating);
+				
+				
 			}
-			
-			//set time and counter
-			reply.setMsgTime(msgTime);
-			reply.setQuestionCount(counter + 1);
-			
 			//save entity
 			updateDao.saveReply(reply);
-			
-			//для адреса отправляем юзеру кнопку
-			if(counter == 0) {
-				ObjectNode kBoard = getKeyboards();
-				postMessage(chatId, questions[1], kBoard);
-				return;
-			}
-			
 			//send responce
-			sendMessage(chatId, questions[counter + 1]);
-			//postMessage(chatId, questions[counter + 1], null);
+//			sendMessage(chatId, questions[counter + 1]);
+			postMessage(chatId, questions[counter + 1], null);
 		}
 	}
-	
-	
-	
-	public void handleData(Update update) {
-		//записать ответ
-		Logger.info(String.valueOf(update.getUpdate_id()));
-		//отправить вопрос
-		
-		
-	}
-
-	
 
 	private void initReply(long chatId, long firstMsgTime) {
 		Reply r = new Reply();
 		r.setChatId(chatId);
 		r.setQuestionCount(0); //first asked question
 		r.setMsgTime(firstMsgTime);
+		r.setFinished(false);
 		updateDao.saveReply(r);
 		
 		sendMessage(chatId, questions[0]);

@@ -29,7 +29,7 @@ public class BotController extends Controller{
 		try {
 			Update u = mapper.readValue(json.toString(), Update.class);
 			UpdateHandler handler = new UpdateHandler(ws, jpaApi);
-			handler.handleData(u);
+			handler.handleUpdate(u);
 		} catch (Exception e) {
 			return internalServerError(e.getMessage());
 		}
