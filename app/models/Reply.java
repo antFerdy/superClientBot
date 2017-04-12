@@ -27,8 +27,8 @@ public class Reply {
 	@Column
 	private String street;
 	
-	@Lob
-	@Column(name = "FIRST_REPLY")
+	
+	@Column(name = "FIRST_REPLY", length = 4000)
 	private String firstReply;
 	
 	@Column
