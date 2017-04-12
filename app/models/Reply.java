@@ -18,7 +18,7 @@ public class Reply {
 	@Column(name = "LAST_MSG_TIME")
 	private long lastMsgTime;
 	
-	@Column
+	@Column(length=4000)
 	private String company;
 	
 	@Column
@@ -27,6 +27,7 @@ public class Reply {
 	@Column
 	private String street;
 	
+	@Lob
 	@Column(name = "FIRST_REPLY")
 	private String firstReply;
 	
